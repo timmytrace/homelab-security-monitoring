@@ -4,11 +4,23 @@
 
 Practice the SOC investigation workflow using real Microsoft 365 alerts ingested into Wazuh.
 
-The first case will focus on mailbox permission changes such as:
+The first case focuses on mailbox permission changes such as:
 
 ```text
 Add-MailboxPermission
 ```
+
+## Completed Case
+
+### Case 001 — Exchange Mailbox Permission Change
+
+A real Wazuh Office 365 alert for `Add-MailboxPermission` was investigated by reviewing the raw Microsoft 365 audit record, identifying the actor, mailbox target, granted principal, access rights, source address, and external-access context.
+
+The operation granted `FullAccess` on a built-in `DiscoverySearchMailbox` to the `Discovery Management` role group. The action was performed by the Exchange service identity `NT SERVICE\\MSExchangeAdminApiNetCore` from the IPv6 loopback address `::1`, with `ExternalAccess` set to `false`.
+
+**Disposition:** True Positive — Benign / Authorized system activity.
+
+[Open Case 001](../../investigations/case-001-exchange-mailbox-permission.md)
 
 ## Analyst Workflow
 
@@ -124,4 +136,4 @@ Record what this investigation taught about Wazuh, Microsoft 365 auditing, and S
 
 ## Next Detection Engineering Exercise
 
-After the investigation is complete, create a custom Wazuh detection for a meaningful Office 365 condition, for example a high-risk mailbox permission change.
+Create a higher-fidelity custom Wazuh detection for mailbox permission changes that increases severity when `FullAccess` is granted to an end-user mailbox by an unexpected human administrator, unfamiliar principal, or external source.
