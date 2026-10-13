@@ -1,0 +1,36 @@
+# Secrets and credentials
+*.env
+.env*
+*secret*
+*password*
+*.key
+*.pem
+*.p12
+*.pfx
+
+# Wazuh / lab sensitive files
+m365_client_secret
+internal_users.yml
+wazuh-keystore
+
+# Backups that may contain credentials
+*.backup
+*.bak
+*.before-*
+
+# Logs and generated data
+*.log
+logs/
+
+# OS / editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Archives / dumps
+*.zip
+*.tar
+*.gz
+*.dmp
+*.dump
