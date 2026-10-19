@@ -211,21 +211,25 @@ Understanding normal ARP, MAC learning, and ICMP behavior is necessary before id
 
 ## Evidence
 
-The lab captured three key pieces of evidence:
+The lab captured three key pieces of evidence.
 
-1. **Topology** — two PCs connected to a Cisco 2960 switch.
-2. **Connectivity and ARP** — successful ping and the learned ARP mapping on PC0.
-3. **Switch MAC table** — dynamic MAC addresses learned on Fa0/1 and Fa0/2.
+### 1. Topology
 
-### Screenshot filenames
+Two PCs connected to a Cisco 2960 switch using Copper Straight-Through cables.
 
-The following screenshots are reserved for this lab:
+![Packet Tracer Lab 01 topology](network-topology.jpg)
 
-```text
-screenshots/networking/lab-01/topology.jpg
-screenshots/networking/lab-01/pc0-arp-ping.jpg
-screenshots/networking/lab-01/switch-mac-table.jpg
-```
+### 2. Connectivity and ARP
+
+PC0 successfully pinged PC1 with 0% packet loss, and the ARP cache mapped `192.168.10.20` to PC1's MAC address.
+
+![PC0 ping and ARP output](pc0-arp-ping.jpg)
+
+### 3. Switch MAC address table
+
+The Cisco 2960 dynamically learned PC0 on Fa0/1 and PC1 on Fa0/2.
+
+![Switch MAC address table](switch-mac-table.jpg)
 
 ## Next exercise
 
