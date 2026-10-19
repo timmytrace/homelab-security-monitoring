@@ -103,6 +103,13 @@ A repeatable SOC investigation template for analyzing real Microsoft 365 alerts 
 
 [Open Lab 04](labs/04-office365-investigation/README.md)
 
+
+### Networking Portfolio — Cisco Packet Tracer
+
+A structured networking track covering Ethernet switching, ARP, ICMP, routing, VLANs, ACLs, NAT/PAT, OSPF, switch security, and a secure small-business network capstone.
+
+[Open the Networking Portfolio](networking/README.md)
+
 ## Break-fix case studies
 
 ### Wazuh Indexer Authentication Failure
@@ -169,7 +176,7 @@ Planned exercises include:
 ├── labs/
 │   ├── 03-microsoft365-integration/
 │   └── 04-office365-investigation/
-├── break-fix/
+├── networking/\n│   ├── README.md\n│   └── lab-01-basic-lan/\n│       └── README.md\n├── break-fix/
 │   └── indexer-authentication-failure/
 ├── notes/
 │   └── command-reference.md
