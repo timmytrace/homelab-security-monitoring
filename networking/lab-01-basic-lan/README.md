@@ -294,10 +294,10 @@ PC0 receives reply
 The final ICMP Echo Reply PDU screenshot is stored as:
 
 ```text
-icmp-reply-pdu.png
+icmp-reply-pdu.jpg.jpg
 ```
 
-![ICMP Echo Reply PDU analysis](icmp-reply-pdu.png)
+![ICMP Echo Reply PDU analysis](icmp-reply-pdu.jpg.jpg)
 
 ## Key learning points
 
