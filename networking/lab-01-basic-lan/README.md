@@ -183,6 +183,122 @@ The successful ping can be summarized as:
 9. PC0 receives the reply.
 ```
 
+## Packet-level analysis in Simulation Mode
+
+Packet Tracer Simulation Mode was used to inspect the full communication sequence rather than relying only on successful ping output.
+
+### ARP Request
+
+PC0 broadcast an ARP request to discover the MAC address associated with `192.168.10.20`.
+
+Observed fields:
+
+```text
+Ethernet destination: FFFF.FFFF.FFFF
+EtherType:            0x0806
+ARP opcode:           0x0001
+Source MAC:           0001.C9E0.9A51
+Source IP:            192.168.10.10
+Target MAC:           0000.0000.0000
+Target IP:            192.168.10.20
+```
+
+The broadcast destination demonstrates that PC0 did not yet know PC1's Layer 2 address.
+
+### ARP Reply
+
+PC1 replied directly to PC0 with its MAC address.
+
+```text
+ARP opcode:           0x0002
+Source MAC:           000D.FF94.B04D
+Source IP:            192.168.10.20
+Target MAC:           0001.C9E0.9A51
+Target IP:            192.168.10.10
+```
+
+Unlike the request, this frame was unicast because PC1 already knew PC0's MAC address.
+
+### ICMP Echo Request
+
+After ARP resolution, PC0 sent the actual ping.
+
+```text
+Ethernet source:      0001.C9E0.9A51
+Ethernet destination: 000D.FF94.B04D
+EtherType:            0x0800
+
+IPv4 source:          192.168.10.10
+IPv4 destination:     192.168.10.20
+Protocol:             0x01 (ICMP)
+TTL:                  128
+
+ICMP Type:            8
+ICMP Code:            0
+```
+
+ICMP Type 8 identifies an Echo Request.
+
+### ICMP Echo Reply
+
+PC1 returned the successful Echo Reply through the Layer 2 switch.
+
+```text
+Ethernet source:      000D.FF94.B04D
+Ethernet destination: 0001.C9E0.9A51
+EtherType:            0x0800
+
+IPv4 source:          192.168.10.20
+IPv4 destination:     192.168.10.10
+Protocol:             0x01 (ICMP)
+TTL:                  128
+
+ICMP Type:            0
+ICMP Code:            0
+```
+
+ICMP Type 0 identifies an Echo Reply. The TTL remained unchanged while passing through the Cisco 2960 because the device was switching at Layer 2 rather than routing the packet at Layer 3.
+
+### Encapsulation observed
+
+```text
+Ethernet Frame
+└── IPv4 Packet
+    └── ICMP Message
+```
+
+The exercise demonstrated how ARP resolution occurs before a local IPv4 host can construct the unicast Ethernet frame carrying ICMP traffic.
+
+### Full observed sequence
+
+```text
+PC0 broadcasts ARP Request
+        ↓
+Switch floods broadcast
+        ↓
+PC1 sends ARP Reply
+        ↓
+PC0 learns PC1 MAC
+        ↓
+PC0 sends ICMP Echo Request (Type 8)
+        ↓
+Switch forwards unicast frame
+        ↓
+PC1 sends ICMP Echo Reply (Type 0)
+        ↓
+PC0 receives reply
+```
+
+### Simulation evidence
+
+The final ICMP Echo Reply PDU screenshot is stored as:
+
+```text
+icmp-reply-pdu.png
+```
+
+![ICMP Echo Reply PDU analysis](icmp-reply-pdu.png)
+
 ## Key learning points
 
 - Devices on the same IPv4 subnet can communicate without a router.
