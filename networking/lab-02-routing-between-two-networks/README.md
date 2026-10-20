@@ -329,20 +329,63 @@ A security analyst may need to understand:
 
 Understanding normal inter-subnet routing is foundational for later labs involving VLANs, ACLs, NAT, OSPF, and segmentation controls.
 
-## Portfolio evidence to add
+## Evidence
 
-Recommended screenshots for this lab:
+### 1. Completed topology
 
-- completed Lab 02 topology
-- `show ip interface brief`
-- successful PC0 → PC1 routed ping
-- `show ip route`
-- PC0 ARP request for `192.168.10.1`
-- Router1 ARP reply to PC0
-- Router1 inbound ICMP Echo Request
-- Router1 outbound ICMP Echo Request
-- PC1 outbound ICMP Echo Reply
-- Router1 outbound ICMP Echo Reply
+![Completed Lab 02 topology](lab02-01-topology.png)
+
+### 2. Router interfaces up/up
+
+![Router interfaces configured and operational](lab02-02-router-interfaces-up.png)
+
+### 3. Successful routed ping
+
+PC0 successfully reached PC1 across the router with 0% packet loss.
+
+![Successful routed ping from PC0 to PC1](lab02-03-routed-ping-success.png)
+
+### 4. Routing table
+
+The router learned both directly connected networks automatically.
+
+![Router routing table](lab02-04-routing-table.png)
+
+### 5. PC0 ARP request for the default gateway
+
+PC0 resolved the MAC address of `192.168.10.1` rather than ARPing directly for the remote host.
+
+![ARP request for default gateway](lab02-05-arp-request-default-gateway.png)
+
+### 6. Router ARP reply to PC0
+
+Router1 G0/0 returned its MAC address to PC0.
+
+![Router ARP reply to PC0](lab02-06-arp-reply-router-to-pc0.png)
+
+### 7. ICMP Echo Request inbound to Router1
+
+The inbound frame used PC0's MAC as source and Router1 G0/0 as destination while preserving PC1 as the IPv4 destination.
+
+![Inbound ICMP Echo Request at Router1](lab02-07-router-inbound-icmp-request.png)
+
+### 8. ICMP Echo Request outbound from Router1
+
+Router1 rebuilt the Layer 2 frame for the right-hand LAN and decremented TTL from 128 to 127.
+
+![Outbound ICMP Echo Request from Router1](lab02-08-router-outbound-icmp-request.png)
+
+### 9. PC1 ICMP Echo Reply
+
+PC1 sent the reply toward its default gateway because PC0 was on a remote subnet.
+
+![PC1 ICMP Echo Reply](lab02-09-pc1-icmp-echo-reply.png)
+
+### 10. Router1 outbound ICMP Echo Reply
+
+Router1 rebuilt the return frame for the left-hand LAN and forwarded the reply back to PC0 with TTL 127.
+
+![Router outbound ICMP Echo Reply](lab02-10-router-outbound-icmp-reply.png)
 
 ## Next exercise
 
