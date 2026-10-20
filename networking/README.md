@@ -7,7 +7,7 @@ The goal is to build networking knowledge from first principles and progress tow
 ## Planned progression
 
 1. **Lab 01 — Basic LAN, ARP, MAC Learning and ICMP**
-2. Lab 02 — Routing Between Two Networks
+2. **[Lab 02 — Routing Between Two Networks](lab-02-routing-between-two-networks/README.md)**
 3. Lab 03 — VLAN Segmentation
 4. Lab 04 — Inter-VLAN Routing
 5. Lab 05 — DHCP and DNS Services
